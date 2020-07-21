@@ -15,6 +15,7 @@ class Main extends PluginBase{
     private $imageList;
 
     public function onEnable(){
+        $this->imageList = new ImageList();
         foreach(glob($this->getDataFolder() . '*') as $path){
             $info = getimagesize($path);
             if(is_array($info) && $info[2] !== IMG_PNG && $info[2] !== IMG_JPG){
