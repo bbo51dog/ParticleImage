@@ -3,6 +3,8 @@
 namespace bbo51dog\particleimage\image;
 
 use bbo51dog\particleimage\Main;
+use function array_merge;
+use function array_reverse;
 use function file_get_contents;
 use function imagecolorat;
 use function imagecreatefromstring;
@@ -23,7 +25,7 @@ class Image{
     private $resource;
 
     /** @var int[][] */
-    private $colors;
+    private $colors = [];
 
     /**
      * Image constructor.
@@ -57,14 +59,16 @@ class Image{
         $space = self::IMAGE_SIDE_LENGTH / (Main::BLOCK_LENGTH * Main::PARTICLE_NUM_PER_BLOCK);
         for( ; $x < $width; $x += $space){
             $y = 0;
+            $colorsCache = [];
             for( ; $y < $height; $y += $space){
                 $rgb = imagecolorat($this->resource, $x, $y);
-                $this->colors[] = [
+                $colorsCache[] = [
                     'r' => ($rgb >> 16) & 0xFF,
                     'g' => ($rgb >> 8) & 0xFF,
                     'b' => $rgb & 0xFF,
                 ];
             }
+            array_merge($this->colors, array_reverse($colorsCache));
         }
     }
 

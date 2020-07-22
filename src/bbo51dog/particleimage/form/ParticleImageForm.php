@@ -37,7 +37,7 @@ class ParticleImageForm extends SimpleForm{
         $zCount = 0;
         $level = $player->getLevel();
         foreach($image->getColors() as $rgb){
-            if($xCount > Main::BLOCK_LENGTH * Main::PARTICLE_NUM_PER_BLOCK){
+            if($xCount > (Main::BLOCK_LENGTH * Main::PARTICLE_NUM_PER_BLOCK) - 1){
                 $xCount = 0;
                 $zCount++;
             }
