@@ -10,10 +10,13 @@ use function imagesy;
 
 class Image{
 
-    public const SIDE_LENGTH = 20;
+    public const SIDE_LENGTH = 40;
 
     /** @var string */
     private $path;
+
+    /** @var string */
+    private $name;
 
     /** @var resource */
     private $resource;
@@ -25,9 +28,24 @@ class Image{
      * Image constructor.
      * @param string $path
      */
-    public function __construct(string $path){
+    public function __construct(string $path, string $name){
         $this->path = $path;
+        $this->name = $name;
         $this->loadImage();
+    }
+
+    /**
+     * @return string
+     */
+    public function getName(): string{
+        return $this->name;
+    }
+
+    /**
+     * @return int[][]
+     */
+    public function getColors(): array{
+        return $this->colors;
     }
 
     private function loadImage(){
@@ -35,7 +53,7 @@ class Image{
         $width = imagesx($this->resource);
         $height = imagesy($this->resource);
         $x = 0;
-        $space = self::SIDE_LENGTH / 20;
+        $space = self::SIDE_LENGTH / 80;
         for( ; $x < $width; $x += $space){
             $y = 0;
             for( ; $y < $height; $y += $space){

@@ -2,12 +2,12 @@
 
 namespace bbo51dog\particleimage;
 
+use bbo51dog\particleimage\command\ParticleImageCommand;
 use bbo51dog\particleimage\image\ImageList;
 use pocketmine\plugin\PluginBase;
 use function getimagesize;
 use function is_array;
-use const IMG_JPG;
-use const IMG_PNG;
+use function is_int;
 
 class Main extends PluginBase{
 
@@ -19,11 +19,13 @@ class Main extends PluginBase{
         $this->getLogger()->info('Loading images...');
         foreach(glob($this->getDataFolder() . '*') as $path){
             $info = getimagesize($path);
-            if(is_array($info) && $info[2] !== IMG_PNG && $info[2] !== IMG_JPG){
+            if(!is_array($info) || !is_int($info[2])){
                 continue;
             }
             $this->imageList->registerImage($path);
         }
         $this->getLogger()->info('Images successfully loaded');
+
+        $this->getServer()->getCommandMap()->register('particleimage', new ParticleImageCommand($this->imageList));
     }
 }
