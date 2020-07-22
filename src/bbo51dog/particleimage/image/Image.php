@@ -68,7 +68,7 @@ class Image{
                     'b' => $rgb & 0xFF,
                 ];
             }
-            array_merge($this->colors, array_reverse($colorsCache));
+            $this->colors = array_merge($this->colors, array_reverse($colorsCache));
         }
     }
 
