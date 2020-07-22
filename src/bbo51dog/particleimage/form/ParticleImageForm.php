@@ -5,6 +5,7 @@ namespace bbo51dog\particleimage\form;
 use bbo51dog\particleimage\form\base\SimpleForm;
 use bbo51dog\particleimage\image\Image;
 use bbo51dog\particleimage\image\ImageList;
+use bbo51dog\particleimage\Main;
 use pocketmine\level\particle\DustParticle;
 use pocketmine\math\Vector3;
 use pocketmine\Player;
@@ -36,12 +37,16 @@ class ParticleImageForm extends SimpleForm{
         $zCount = 0;
         $level = $player->getLevel();
         foreach($image->getColors() as $rgb){
-            if($xCount > 80){
+            if($xCount > Main::BLOCK_LENGTH * Main::PARTICLE_NUM_PER_BLOCK){
                 $xCount = 0;
                 $zCount++;
             }
             $particle = new DustParticle(
-                new Vector3($player->x + $xCount / 5 - 8, $player->y - 3, $player->z + $zCount / 5 - 8),
+                new Vector3(
+                    $player->x + $xCount / Main::PARTICLE_NUM_PER_BLOCK - Main::BLOCK_LENGTH / 2,
+                    $player->y - 3,
+                    $player->z + $zCount / Main::PARTICLE_NUM_PER_BLOCK - Main::BLOCK_LENGTH / 2
+                ),
                 $rgb['r'],
                 $rgb['g'],
                 $rgb['b']

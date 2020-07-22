@@ -2,6 +2,7 @@
 
 namespace bbo51dog\particleimage\image;
 
+use bbo51dog\particleimage\Main;
 use function file_get_contents;
 use function imagecolorat;
 use function imagecreatefromstring;
@@ -10,7 +11,7 @@ use function imagesy;
 
 class Image{
 
-    public const SIDE_LENGTH = 40;
+    public const IMAGE_SIDE_LENGTH = 120;
 
     /** @var string */
     private $path;
@@ -53,7 +54,7 @@ class Image{
         $width = imagesx($this->resource);
         $height = imagesy($this->resource);
         $x = 0;
-        $space = self::SIDE_LENGTH / 80;
+        $space = self::IMAGE_SIDE_LENGTH / (Main::BLOCK_LENGTH * Main::PARTICLE_NUM_PER_BLOCK);
         for( ; $x < $width; $x += $space){
             $y = 0;
             for( ; $y < $height; $y += $space){
@@ -88,8 +89,8 @@ class Image{
             $diffY = 0;
             $diffX = 0;
         }
-        $thumbnail = imagecreatetruecolor(self::SIDE_LENGTH, self::SIDE_LENGTH);
-        imagecopyresampled($thumbnail, $resource, 0, 0, $diffX, $diffY, self::SIDE_LENGTH, self::SIDE_LENGTH, $diffW, $diffH);
+        $thumbnail = imagecreatetruecolor(self::IMAGE_SIDE_LENGTH, self::IMAGE_SIDE_LENGTH);
+        imagecopyresampled($thumbnail, $resource, 0, 0, $diffX, $diffY, self::IMAGE_SIDE_LENGTH, self::IMAGE_SIDE_LENGTH, $diffW, $diffH);
         return $thumbnail;
     }
 }

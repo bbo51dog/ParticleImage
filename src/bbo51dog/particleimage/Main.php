@@ -11,6 +11,9 @@ use function is_int;
 
 class Main extends PluginBase{
 
+    public const BLOCK_LENGTH = 10;
+    public const PARTICLE_NUM_PER_BLOCK = 10;
+
     /** @var ImageList */
     private $imageList;
 
