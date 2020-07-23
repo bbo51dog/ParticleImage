@@ -2,7 +2,7 @@ name: ParticleImage
 api: [3.0.0]
 main: bbo51dog\particleimage\Main
 author: bbo51dog
-version: 1.0.0
+version: 1.0.0+dev
 permissions:
   particleimage.command.pimage:
     default: true
